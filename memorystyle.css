@@ -45,16 +45,26 @@ nav h1{
   #moves{
     position: absolute;
     right: 12%;
-    top: 11%;
+    top: 13%;
     font-size: 158%;
     font-weight: bold;
   }
 
+  #playAgain{
+    position: absolute;
+    left: 12%;
+    top: 13%;
+    padding: 1vh;
+    border-radius: 8px;
+    font-weight: bold;
+    background: #cdcdf6a8;
+    font-size: medium;
+    cursor: pointer;
+  }
+
 /* Media Queries */
 @media screen and (max-width: 450px) {
-    body {
-      /* background-color: rgb(16, 255, 16); */
-    }
+
     .grid-container {
         margin: 13vh auto auto auto;
         padding: 5%;
@@ -78,9 +88,11 @@ nav h1{
         font-size: 125%;
         font-weight: bold;
       }
+      #playAgain{
+        top: 12%;
+      }
       .grid-item {
         border: 1px solid rgba(0, 0, 0, 0.8);
-        margin: 0% 10%;
         height: 90%;
         width: 90%;
         

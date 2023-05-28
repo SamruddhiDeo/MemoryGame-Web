@@ -22,6 +22,7 @@ const backgrounds = [
     "10.png",
 ];
 movesTaken = document.getElementById("moves")
+playAgain = document.getElementById("playAgain")
 gridItem = document.getElementsByClassName("grid-item");
 let randomNumber;
 let oldRandomNumber;
@@ -33,25 +34,29 @@ let a;
 let b;
 let moves = 0;
 
+//Main logic
+playAgain.addEventListener("click",playAgainHandler)
+
+
 //Iterate all grid items and set hidden random cards on each
 Array.from(gridItem).forEach((e) => {
     randomNumber = Math.floor(Math.random() * backgrounds.length);
     oldRandomNumber = randomNumber;
     place = backgrounds[randomNumber];
-    e.style.backgroundImage = `url("img/${place}")`;
+    e.style.backgroundImage = `url("memoryimg/${place}")`;
     e.style.backgroundSize = "100% 100%";
     backgrounds.splice(randomNumber, 1);
 });
 
-//function for click on cardds
+//function for click on cards
 function clickHandler(id) {
+    gridItemArray[id].classList.remove("bg-blue");
     moves++;
     displayMoves()
     matchArr.push(document.getElementById(id))
     alwaysOpen();
-    gridItemArray[id].classList.remove("bg-blue");
-    gameFinish()
     checkIfTwoOpen();
+    gameFinish();
 }
 
 //function to check no of caards open
@@ -64,10 +69,15 @@ function checkIfTwoOpen() {
     }
     if (i % 2 == 0) {
         removeClickHandlers()
-        checkMatch()
-        setTimeout(() => {
+        console.log("removed")
+        if(!checkMatch()){
+            setTimeout(() => {
+                addClickHandler()
+            }, 1400);
+        }
+        else{
             addClickHandler()
-        }, 1400);
+        }
         return
     }
 }
@@ -93,6 +103,13 @@ function addClickHandler() {
 function alwaysOpen() {
     for (let j = 0; j < keepOpen.length; j++) {
         keepOpen[j].className = "grid-item";
+    }
+}
+
+//function to keep cards close
+function alwaysClose() {
+    for (let j = 0; j < gridItemArray.length; j++) {
+        gridItemArray[j].classList.add("bg-blue");
     }
 }
 
@@ -128,6 +145,9 @@ function gameFinish() {
 
 //function to display no of moves
 function displayMoves(){
-    console.log(typeof moves)
     movesTaken.innerText = `Moves : ${Math.floor(moves/2)}`
+}
+
+function playAgainHandler(){
+ location.reload();
 }
